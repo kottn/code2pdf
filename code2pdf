@@ -1,0 +1,31 @@
+#!/bin/bash
+test -n "$1" || echo
+test -n "$1" || echo "usage: code2pdf <FILE_NAME>"
+test -n "$1" || echo
+test -n "$1" || exit 1
+read -p "Customize settings? [Y/n]: " yorn
+case $yorn in
+	y | Y )
+    read -p "*) 1-page or 2-pages per paper? (default=1) [1/2]: " ANS1
+    read -p "*) Font-size? (default=8): " ANS2
+    read -p "*) Space-ratio between lines? (default=1.5): " ANS3
+    ;;
+  * )
+    ANS1=1; ANS2=8; ANS3=1.5
+    ;;
+esac
+# Font not found --> $ sudo apt install fonts-migmix
+NRML_FONT="migu-1m-regular"
+BOLD_FONT="migu-1m-bold"
+BITL_FONT="migu-1m-regular"
+OPT1="-af ${NRML_FONT} -abf ${BOLD_FONT} -abif ${BITL_FONT}"
+case $ANS1 in
+	1) OPT2="-p";;
+	2) OPT2="-p2";;
+	*) OPT2="-p";;
+esac
+
+nkf -j ${1} > ${1}.jp
+e2ps -j ${OPT1} -size ${ANS2} -kfw 1.0 -ls ${ANS3} -line 200 ${OPT2} -box ${1}.jp > ${1}.ps
+ps2pdf ${1}.ps
+rm -f ${1}.jp ${1}.ps

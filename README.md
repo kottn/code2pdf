@@ -1,6 +1,6 @@
 # code2pdf
 Convert from text-file to PDF.  
-**Freezed repo**
+**Development stopped**
 
 ## Usage
 ```

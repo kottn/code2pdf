@@ -1,5 +1,5 @@
 # code2pdf
-Convert from text-file to PDF.
+Convert from text-file to PDF.  
 **Freezed repo**
 
 ## Usage
